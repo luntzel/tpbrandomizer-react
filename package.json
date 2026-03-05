@@ -1,0 +1,42 @@
+{
+  "name": "tpbrandomizer-react",
+  "version": "1.0.0",
+  "description": "Trailer Park Boys Episode Randomizer - React Edition",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "server": "node server.js",
+    "start": "npm run build && node server.js",
+    "lint": "eslint src --ext .jsx,.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luntzel/tpbrandomizer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luntzel/tpbrandomizer/issues"
+  },
+  "homepage": "https://github.com/luntzel/tpbrandomizer#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.0",
+    "eslint": "^8.56.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-n": "^16.6.2",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "vite": "^7.3.1"
+  }
+}
