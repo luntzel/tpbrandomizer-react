@@ -19,7 +19,7 @@ const SEASON_EPISODES = {
 function App() {
   const [season, setSeason] = useState(null)
   const [episode, setEpisode] = useState(null)
-  const [backgroundImage, setBackgroundImage] = useState('')
+  const [backgroundImage, setBackgroundImage] = useState('/bg.jpg')
 
   const getRandomArbitrary = (min, max) => {
     return Math.floor(Math.random() * (max - min) + min) + 1
@@ -34,36 +34,36 @@ function App() {
     const numberOfEpisodes = SEASON_EPISODES[seasonSelection]
 
     let episodeSelection
-    let bgImage = 'bg.jpg'
+    let bgImage = '/bg.jpg'
 
     // Special weighting for seasons 7 and 8
     if (seasonSelection === 7) {
       const y = Math.floor(Math.random() * 100)
       if (y <= 25) {
         episodeSelection = 4
-        bgImage = 'tpb-sb.png'
+        bgImage = '/tpb-sb.png'
       } else if (y <= 50) {
         episodeSelection = 5
-        bgImage = 'tpb-sb.png'
+        bgImage = '/tpb-sb.png'
       } else if (y <= 75) {
         episodeSelection = 10
-        bgImage = 'tpb-sb.png'
+        bgImage = '/tpb-sb.png'
       } else {
         episodeSelection = getRandomArbitrary(1, numberOfEpisodes)
-        bgImage = 'bg.jpg'
+        bgImage = '/bg.jpg'
       }
     } else if (seasonSelection === 8) {
       const z = Math.floor(Math.random() * 100)
       if (z <= 50) {
         episodeSelection = 10
-        bgImage = 'tpb-sb.png'
+        bgImage = '/tpb-sb.png'
       } else {
         episodeSelection = getRandomArbitrary(1, numberOfEpisodes)
-        bgImage = 'bg.jpg'
+        bgImage = '/bg.jpg'
       }
     } else {
       episodeSelection = getRandomArbitrary(1, numberOfEpisodes)
-      bgImage = 'bg.jpg'
+      bgImage = '/bg.jpg'
     }
 
     setEpisode(episodeSelection)
