@@ -1,7 +1,5 @@
 import { useState } from 'react'
 import './App.css'
-import bgImage from '../public/bg.jpg'
-import sbImage from '../public/tpb-sb.png'
 
 const SEASON_EPISODES = {
   1: 6,
@@ -21,7 +19,7 @@ const SEASON_EPISODES = {
 function App() {
   const [season, setSeason] = useState(null)bgImage
   const [episode, setEpisode] = useState(null)
-  const [backgroundImage, setBackgroundImage] = useState('/bg.jpg')
+  const [backgroundImage, setBackgroundImageState('/bg.jpg')
 
   const getRandomArbitrary = (min, max) => {
     return Math.floor(Math.random() * (max - min) + min) + 1
@@ -36,44 +34,44 @@ function App() {
     const numberOfEpisodes = SEASON_EPISODES[seasonSelection]
 
     let episodeSelection
-    let selectedBg = bgImage
+    let bgClass = 'bg-default'
 
     // Special weighting for seasons 7 and 8
     if (seasonSelection === 7) {
       const y = Math.floor(Math.random() * 100)
       if (y <= 25) {
         episodeSelection = 4
-        selectedBg = sbImage
+        bgClass = 'bg-sb'
       } else if (y <= 50) {
         episodeSelection = 5
-        selectedBg = sbImage
+        bgClass = 'bg-sb'
       } else if (y <= 75) {
         episodeSelection = 10
-        selectedBg = sbImage
+        bgClass = 'bg-sb'
       } else {
         episodeSelection = getRandomArbitrary(1, numberOfEpisodes)
-        selectedBg = bgImage
+        bgClass = 'bg-default'
       }
     } else if (seasonSelection === 8) {
       const z = Math.floor(Math.random() * 100)
       if (z <= 50) {
         episodeSelection = 10
-        selectedBg = sbImage
+        bgClass = 'bg-sb'
       } else {
         episodeSelection = getRandomArbitrary(1, numberOfEpisodes)
-        selectedBg = bgImage
+        bgClass = 'bg-default'
       }
     } else {
       episodeSelection = getRandomArbitrary(1, numberOfEpisodes)
-      selectedBg = bgImage
+      bgClass = 'bg-default'
     }
 
     setEpisode(episodeSelection)
-    setBackgroundImage(selectedBg)
+    setBgClass(bgClass)
   }
 
   return (
-    <div className="app-wrapper" style={{ backgroundImage: backgroundImage ? `url('${backgroundImage}')` : 'none' }}>
+    <div className={`app-wrapper ${bgClass}`}>
       <header className="header">
         <h2 className="title">Trailer Park Boys EPISODE RANDOMIZER!!!!!</h2>
       </header>
