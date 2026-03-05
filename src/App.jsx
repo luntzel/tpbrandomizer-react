@@ -17,9 +17,9 @@ const SEASON_EPISODES = {
 }
 
 function App() {
-  const [season, setSeason] = useState(null)bgImage
+  const [season, setSeason] = useState(null)
   const [episode, setEpisode] = useState(null)
-  const [backgroundImage, setBackgroundImageState('/bg.jpg')
+  const [bgClass, setBgClass] = useState('bg-default')
 
   const getRandomArbitrary = (min, max) => {
     return Math.floor(Math.random() * (max - min) + min) + 1
