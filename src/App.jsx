@@ -1,7 +1,17 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
-import bgImage from '../public/bg.jpg?url'
-import sbImage from '../public/tpb-sb.png?url'
+
+const BG_DEFAULT = '/bg.jpg'
+const BG_SPECIAL = '/tpb-sb.png'
+
+// Preload images
+const preloadImage = (src) => {
+  const img = new Image()
+  img.src = src
+}
+
+preloadImage(BG_DEFAULT)
+preloadImage(BG_SPECIAL)
 
 const SEASON_EPISODES = {
   1: 6,
@@ -21,8 +31,15 @@ const SEASON_EPISODES = {
 function App() {
   const [season, setSeason] = useState(null)
   const [episode, setEpisode] = useState(null)
-  const [backgroundImg, setBackgroundImg] = useState(bgImage)
+  const [backgroundImg, setBackgroundImg] = useState(BG_DEFAULT)
 
+  // Preload images on component mount
+  useEffect(() => {
+    const img1 = new Image()
+    const img2 = new Image()
+    img1.src = BG_DEFAULT
+    img2.src = BG_SPECIAL
+  }, [])
   const getRandomArbitrary = (min, max) => {
     return Math.floor(Math.random() * (max - min) + min) + 1
   }
@@ -36,36 +53,36 @@ function App() {
     const numberOfEpisodes = SEASON_EPISODES[seasonSelection]
 
     let episodeSelection
-    let selectedImage = bgImage
+    let selectedImage = BG_DEFAULT
 
     // Special weighting for seasons 7 and 8
     if (seasonSelection === 7) {
       const y = Math.floor(Math.random() * 100)
       if (y <= 25) {
         episodeSelection = 4
-        selectedImage = sbImage
+        selectedImage = BG_SPECIAL
       } else if (y <= 50) {
         episodeSelection = 5
-        selectedImage = sbImage
+        selectedImage = BG_SPECIAL
       } else if (y <= 75) {
         episodeSelection = 10
-        selectedImage = sbImage
+        selectedImage = BG_SPECIAL
       } else {
         episodeSelection = getRandomArbitrary(1, numberOfEpisodes)
-        selectedImage = bgImage
+        selectedImage = BG_DEFAULT
       }
     } else if (seasonSelection === 8) {
       const z = Math.floor(Math.random() * 100)
       if (z <= 50) {
         episodeSelection = 10
-        selectedImage = sbImage
+        selectedImage = BG_SPECIAL
       } else {
         episodeSelection = getRandomArbitrary(1, numberOfEpisodes)
-        selectedImage = bgImage
+        selectedImage = BG_DEFAULT
       }
     } else {
       episodeSelection = getRandomArbitrary(1, numberOfEpisodes)
-      selectedImage = bgImage
+      selectedImage = BG_DEFAULT
     }
 
     setEpisode(episodeSelection)
