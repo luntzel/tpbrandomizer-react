@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import './App.css'
+import bgImage from '../public/bg.jpg'
+import sbImage from '../public/tpb-sb.png'
 
 const SEASON_EPISODES = {
   1: 6,
@@ -17,7 +19,7 @@ const SEASON_EPISODES = {
 }
 
 function App() {
-  const [season, setSeason] = useState(null)
+  const [season, setSeason] = useState(null)bgImage
   const [episode, setEpisode] = useState(null)
   const [backgroundImage, setBackgroundImage] = useState('/bg.jpg')
 
@@ -34,40 +36,40 @@ function App() {
     const numberOfEpisodes = SEASON_EPISODES[seasonSelection]
 
     let episodeSelection
-    let bgImage = '/bg.jpg'
+    let selectedBg = bgImage
 
     // Special weighting for seasons 7 and 8
     if (seasonSelection === 7) {
       const y = Math.floor(Math.random() * 100)
       if (y <= 25) {
         episodeSelection = 4
-        bgImage = '/tpb-sb.png'
+        selectedBg = sbImage
       } else if (y <= 50) {
         episodeSelection = 5
-        bgImage = '/tpb-sb.png'
+        selectedBg = sbImage
       } else if (y <= 75) {
         episodeSelection = 10
-        bgImage = '/tpb-sb.png'
+        selectedBg = sbImage
       } else {
         episodeSelection = getRandomArbitrary(1, numberOfEpisodes)
-        bgImage = '/bg.jpg'
+        selectedBg = bgImage
       }
     } else if (seasonSelection === 8) {
       const z = Math.floor(Math.random() * 100)
       if (z <= 50) {
         episodeSelection = 10
-        bgImage = '/tpb-sb.png'
+        selectedBg = sbImage
       } else {
         episodeSelection = getRandomArbitrary(1, numberOfEpisodes)
-        bgImage = '/bg.jpg'
+        selectedBg = bgImage
       }
     } else {
       episodeSelection = getRandomArbitrary(1, numberOfEpisodes)
-      bgImage = '/bg.jpg'
+      selectedBg = bgImage
     }
 
     setEpisode(episodeSelection)
-    setBackgroundImage(bgImage)
+    setBackgroundImage(selectedBg)
   }
 
   return (
