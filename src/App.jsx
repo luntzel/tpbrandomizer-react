@@ -4,12 +4,12 @@ import './App.css'
 const BG_DEFAULT = '/bg.jpg'
 const BG_SPECIAL = '/tpb-sb.png'
 
-// Preload images
 const preloadImage = (src) => {
   const img = new Image()
   img.src = src
 }
 
+// Preload images
 preloadImage(BG_DEFAULT)
 preloadImage(BG_SPECIAL)
 
@@ -33,29 +33,18 @@ function App() {
   const [episode, setEpisode] = useState(null)
   const [backgroundImg, setBackgroundImg] = useState(BG_DEFAULT)
 
-  // Preload images on component mount
   useEffect(() => {
-    const img1 = new Image()
-    const img2 = new Image()
-    img1.src = BG_DEFAULT
-    img2.src = BG_SPECIAL
+    preloadImage(BG_DEFAULT)
+    preloadImage(BG_SPECIAL)
   }, [])
-  const getRandomArbitrary = (min, max) => {
-    return Math.floor(Math.random() * (max - min) + min) + 1
+
+  const getRandomNumber = (min, max) => {
+    return Math.floor(Math.random() * (max - min) + min)
   }
 
-  const getGreasy = () => {
-    // Pick a random season
-    const seasonSelection = getRandomArbitrary(1, 12)
-    setSeason(seasonSelection)
-
-    // Get number of episodes for that season
-    const numberOfEpisodes = SEASON_EPISODES[seasonSelection]
-
+  const getSpecialEpisodeForSeason = (seasonSelection) => {
     let episodeSelection
     let selectedImage = BG_DEFAULT
-
-    // Special weighting for seasons 7 and 8
     if (seasonSelection === 7) {
       const y = Math.floor(Math.random() * 100)
       if (y <= 25) {
@@ -68,7 +57,7 @@ function App() {
         episodeSelection = 10
         selectedImage = BG_SPECIAL
       } else {
-        episodeSelection = getRandomArbitrary(1, numberOfEpisodes)
+        episodeSelection = getRandomNumber(1, SEASON_EPISODES[seasonSelection])
         selectedImage = BG_DEFAULT
       }
     } else if (seasonSelection === 8) {
@@ -77,12 +66,27 @@ function App() {
         episodeSelection = 10
         selectedImage = BG_SPECIAL
       } else {
-        episodeSelection = getRandomArbitrary(1, numberOfEpisodes)
+        episodeSelection = getRandomNumber(1, SEASON_EPISODES[seasonSelection])
         selectedImage = BG_DEFAULT
       }
+    }
+    return { episodeSelection, selectedImage }
+  }
+
+  const getGreasy = () => {
+    const seasonSelection = getRandomNumber(1, 13)
+    setSeason(seasonSelection)
+    const numberOfEpisodes = SEASON_EPISODES[seasonSelection]
+
+    let episodeSelection
+    let selectedImage = BG_DEFAULT
+
+    if (seasonSelection === 7 || seasonSelection === 8) {
+      const { episodeSelection: specialEpisode, selectedImage: specialImage } = getSpecialEpisodeForSeason(seasonSelection)
+      episodeSelection = specialEpisode
+      selectedImage = specialImage
     } else {
-      episodeSelection = getRandomArbitrary(1, numberOfEpisodes)
-      selectedImage = BG_DEFAULT
+      episodeSelection = getRandomNumber(1, numberOfEpisodes + 1)
     }
 
     setEpisode(episodeSelection)
